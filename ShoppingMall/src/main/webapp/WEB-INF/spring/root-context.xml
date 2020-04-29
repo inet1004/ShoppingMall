@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<context:component-scan base-package="co.park.shop"/>
+	<bean id="memberVo" class="co.park.shop.member.Vo.MemberVo"/>
+	<bean id="boardVo" class="co.park.shop.board.service.BoardVo"/>  
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> <!--하나 사용하고 나면 자동 연결 끈기 -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="shop"/> <!-- id //companymaster테이블사용 -->
+		<property name="password" value="1234"/> <!-- 비번 -->
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/> <!-- bean id = "dataSource" 참조하라-->
+	</bean>
+	
+</beans>
